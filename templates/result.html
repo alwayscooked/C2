@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Result{% endblock %}
+{% block content %}  
+
+<p><label for="">Find results for specified hosts</label></p>
+<form action="/results.json">
+    <p><label for="host">Hosts</label></p>
+    <input type="text" name="host" id="host">
+    <p><label for="tactic">Tactic</label></p>
+    <select name="tactic" id="tactic">
+        <option value="T1082" selected>T1082 - System information discovery</option>
+        <option value="T1059">T1059 - Command-Line Interface</option>
+        <option value="T1083">T1083 - File and Directory Discovery</option>
+        <option value="T1057">T1057 - Process Discovery</option>
+        <option value="T1056">T1056 - Input Capture</option>
+        <option value="T1115">T1115 - Clipboard Data</option>
+        <option value="T1113">T1113 - Screen Capture</option>
+        <option value="T1123">T1123 - Audio Capture</option>
+        <option value="T1125">T1125 - Video Capture</option>
+    </select>
+    <p><input type="button" value="Find" onclick="getobj()"></p>
+</form>
+<textarea name="aval_hosts" id="ahosts" readonly rows="20%" cols="80%"></textarea>
+<script>
+    async function getobj(){
+        var host = document.getElementById('host').value
+        var tactic = document.getElementById('tactic').value
+        
+        const request = new Request('http://192.168.0.15:5000/get_results?host='+host+'&tactic='+tactic)
+        
+        const response = await fetch(request)
+        const res = await response.json()
+        console.log('OK!')
+        document.getElementById('ahosts').value = res['data']
+    }
+</script>
+{% endblock %}
