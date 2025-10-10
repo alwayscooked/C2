@@ -18,20 +18,38 @@
         <option value="T1123">T1123 - Audio Capture</option>
         <option value="T1125">T1125 - Video Capture</option>
     </select>
-    <p><input type="button" value="Find" onclick="getobj()"></p>
+    <p><input type="button" value="Find" id="button" onclick="getobj()"></p>
+    <p><label for="res">Results:</label></p>
+    <div id="res"></div>
 </form>
-<textarea name="aval_hosts" id="ahosts" readonly rows="20%" cols="80%"></textarea>
 <script>
     async function getobj(){
         var host = document.getElementById('host').value
         var tactic = document.getElementById('tactic').value
-        
         const request = new Request('http://192.168.0.15:5000/get_results?host='+host+'&tactic='+tactic)
-        
         const response = await fetch(request)
         const res = await response.json()
-        console.log('OK!')
-        document.getElementById('ahosts').value = res['data']
+        let div_res = document.getElementById("res")
+        div_res.innerHTML = ''
+        if(tactic=='T1113' || tactic=='T1125'){
+            for(let i = 0; i<res['data'].length; i++){
+                div_res.innerHTML+='<a href="./'+res['data'][i]+'">'+res['data'][i].split("/").pop()+'</a>'
+            }
+        }else if(tactic=='T1123'){
+            for(let i = 0; i<res['data'].length; i++){
+                div_res.innerHTML+='<p><audio controls src="./'+res['data'][i]+'" type="audio/wav"></audio></p>'
+            }
+        }else{
+            let textarea = document.createElement('textarea')
+            textarea.name="aval_hosts" 
+            textarea.id="ahosts" 
+            textarea.readOnly=true
+            textarea.rows="18" 
+            textarea.cols="80"
+            textarea.value = res['data']
+            div_res.append(textarea)
+        }
+        
     }
 </script>
 {% endblock %}

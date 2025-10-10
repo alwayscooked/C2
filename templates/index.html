@@ -9,8 +9,10 @@
 <div id="aval_hosts_div">
 
     <p><label for="ahosts">Avaliable hosts</label></p>
-    <textarea name="aval_hosts" id="ahosts" readonly rows="30%" cols="30"></textarea>
-
+    <textarea name="aval_hosts" id="ahosts" readonly rows="25%" cols="30"></textarea>
+    <form action="{{url_for('clear')}}">
+        <p><input type="submit" value="Clear"></p>
+    </form>
 </div>
 <div id="attackdiv">
     <h2>Attack host</h2>
