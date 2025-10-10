@@ -9,6 +9,11 @@ not_streamed_not_filed = ['T1082', 'T1059', 'T1083', 'T1057','T1115', 'T1056']
 
 def res_post():
     try:
+        os.mkdir('./results')
+    except:
+        pass
+    
+    try:
         os.mkdir(f'./results/{request.form['ip']}')
     except:
         pass
@@ -123,3 +128,6 @@ def clear():
     with open('clients.json', 'w') as fl:
         fl.write('')
     return redirect('index.html')
+
+if __name__=="__main__":
+    app.run(host='0.0.0.0')
