@@ -26,14 +26,14 @@
     async function getobj(){
         var host = document.getElementById('host').value
         var tactic = document.getElementById('tactic').value
-        const request = new Request('http://192.168.0.15:5000/get_results?host='+host+'&tactic='+tactic)
+        const request = new Request('https://192.168.0.15/get_results?host='+host+'&tactic='+tactic)
         const response = await fetch(request)
         const res = await response.json()
         let div_res = document.getElementById("res")
         div_res.innerHTML = ''
         if(tactic=='T1113' || tactic=='T1125'){
             for(let i = 0; i<res['data'].length; i++){
-                div_res.innerHTML+='<a href="./'+res['data'][i]+'">'+res['data'][i].split("/").pop()+'</a>'
+                div_res.innerHTML+='<p><a href="./'+res['data'][i]+'">'+res['data'][i].split("/").pop()+'</a></p>'
             }
         }else if(tactic=='T1123'){
             for(let i = 0; i<res['data'].length; i++){
