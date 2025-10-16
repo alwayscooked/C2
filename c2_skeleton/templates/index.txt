@@ -39,7 +39,7 @@
 </main>
 <script>
     async function getobj(){
-        const request = new Request('https://192.168.0.15/data.json')
+        const request = new Request('https://###CHANGE_FOR_IP###/data.json')
         const response = await fetch(request)
         const hosts = await response.json()
         arr = Object.keys(hosts)

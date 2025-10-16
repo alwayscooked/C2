@@ -26,7 +26,7 @@
     async function getobj(){
         var host = document.getElementById('host').value
         var tactic = document.getElementById('tactic').value
-        const request = new Request('https://192.168.0.15/get_results?host='+host+'&tactic='+tactic)
+        const request = new Request('https://###CHANGE_FOR_IP###/get_results?host='+host+'&tactic='+tactic)
         const response = await fetch(request)
         const res = await response.json()
         let div_res = document.getElementById("res")
